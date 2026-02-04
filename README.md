@@ -2,6 +2,9 @@
 
 Aplikasi Dashboard Manajemen Produk yang dibangun menggunakan **CodeIgniter 3** dan **PostgreSQL**. Aplikasi ini memiliki fitur sinkronisasi data dari API eksternal dengan otentikasi dinamis, manajemen inventaris (CRUD), serta antarmuka responsive.
 
+Dokumentasi Link:
+https://youtu.be/CZpfL5cUnCA
+
 ## 📋 Fitur Utama
 
 Sesuai dengan persyaratan tes, aplikasi ini mencakup fitur berikut:

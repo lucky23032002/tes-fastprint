@@ -77,3 +77,8 @@ CREATE TABLE produk (
     kategori_id INTEGER REFERENCES kategori(id_kategori),
     status_id INTEGER REFERENCES status(id_status)
 );
+
+3. Konfigurasi Project
+Clone repository ini ke folder htdocs atau www.
+
+Buka application/config/database.php, sesuaikan kredensial PostgreSQL:

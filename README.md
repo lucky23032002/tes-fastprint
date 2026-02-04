@@ -1,137 +1,81 @@
-# CodeIgniter Composer Installer
+# Tes Junior Programmer - FastPrint Indonesia
 
-[![Latest Stable Version](https://poser.pugx.org/kenjis/codeigniter-composer-installer/v/stable)](https://packagist.org/packages/kenjis/codeigniter-composer-installer) [![Total Downloads](https://poser.pugx.org/kenjis/codeigniter-composer-installer/downloads)](https://packagist.org/packages/kenjis/codeigniter-composer-installer) [![Latest Unstable Version](https://poser.pugx.org/kenjis/codeigniter-composer-installer/v/unstable)](https://packagist.org/packages/kenjis/codeigniter-composer-installer) [![License](https://poser.pugx.org/kenjis/codeigniter-composer-installer/license)](https://packagist.org/packages/kenjis/codeigniter-composer-installer)
+Aplikasi Dashboard Manajemen Produk yang dibangun menggunakan **CodeIgniter 3** dan **PostgreSQL**. Aplikasi ini memiliki fitur sinkronisasi data dari API eksternal dengan otentikasi dinamis, manajemen inventaris (CRUD), serta antarmuka responsive.
 
-This package installs the offical [CodeIgniter](https://github.com/bcit-ci/CodeIgniter) (version `3.1.*`) with secure folder structure via Composer.
+## 📋 Fitur Utama
 
-You can update CodeIgniter system folder to latest version with one command.
+Sesuai dengan persyaratan tes, aplikasi ini mencakup fitur berikut:
 
-## Folder Structure
+1.  **Sync API Otomatis**:
+    * Mengambil data dari API FastPrint.
+    * **Keamanan Dinamis**: Algoritma otomatis untuk generate Username (`C` + Jam Server) dan Password (MD5 Tanggal) sesuai waktu server request.
+    * **Cookie Handling**: Menangani sesi cookie API.
+    * **Upsert Logic**: Mencegah duplikasi data saat sinkronisasi berulang.
+2.  **CRUD Produk**:
+    * **Create**: Form tambah produk dengan validasi server-side.
+    * **Read**: Menampilkan daftar produk dengan **Filter** (Status/Kategori) dan **Sorting** (Harga/Nama) real-time.
+    * **Update**: Edit data produk.
+    * **Delete**: Hapus produk dengan konfirmasi Modal Pop-up.
+3.  **Validasi Input**:
+    * Nama Produk wajib diisi.
+    * Harga wajib berupa angka.
+4.  **Database Relasional**:
+    * Menggunakan **PostgreSQL**.
+    * Normalisasi tabel: `produk`, `kategori`, dan `status`.
+5.  **UI/UX Modern**:
+    * **Admin Dashboard Style** dengan Sidebar.
+    * **Responsive Design** (Mobile Friendly) menggunakan Bootstrap 5 & FontAwesome.
 
-```
-codeigniter/
-├── application/
-├── composer.json
-├── composer.lock
-├── public/
-│   ├── .htaccess
-│   └── index.php
-└── vendor/
-    └── codeigniter/
-        └── framework/
-            └── system/
-```
+## 🛠️ Teknologi yang Digunakan
 
-## Requirements
+* **Backend**: CodeIgniter 3 (PHP)
+* **Database**: PostgreSQL 16
+* **Frontend**: Bootstrap 5, Vanilla JS (AJAX-free Filtering), FontAwesome 6
+* **Font**: Inter / Plus Jakarta Sans
 
-* PHP 5.3.7 or later
-* `composer` command (See [Composer Installation](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx))
-* Git
+## 🗄️ Struktur Database
 
-## How to Use
 
-### Install CodeIgniter
 
-```
-$ composer create-project kenjis/codeigniter-composer-installer codeigniter
-```
+Aplikasi menggunakan 3 tabel yang saling berelasi:
 
-Above command installs `public/.htaccess` to remove `index.php` in your URL. If you don't need it, please remove it.
+1.  **`kategori`**: (`id_kategori` [PK], `nama_kategori`)
+2.  **`status`**: (`id_status` [PK], `nama_status`)
+3.  **`produk`**: 
+    * `id_produk` [PK]
+    * `nama_produk`
+    * `harga`
+    * `kategori_id` [FK -> kategori]
+    * `status_id` [FK -> status]
 
-And it changes `application/config/config.php`:
+## 🚀 Cara Instalasi
 
-~~~
-$config['composer_autoload'] = FALSE;
-↓
-$config['composer_autoload'] = realpath(APPPATH . '../vendor/autoload.php');
-~~~
+### 1. Prasyarat
+* Web Server (Apache/Nginx) dengan PHP 7.4 - 8.1.
+* PostgreSQL Server.
+* Ekstensi PHP `pgsql` atau `pdo_pgsql` aktif.
 
-~~~
-$config['index_page'] = 'index.php';
-↓
-$config['index_page'] = '';
-~~~
+### 2. Instalasi Database
+Buat database baru di pgAdmin bernama `tes_fastprint`, lalu jalankan query berikut:
 
-#### Install Translations for System Messages
+```sql
+-- Tabel Kategori
+CREATE TABLE kategori (
+    id_kategori SERIAL PRIMARY KEY,
+    nama_kategori VARCHAR(255) UNIQUE NOT NULL
+);
 
-If you want to install translations for system messages:
+-- Tabel Status
+CREATE TABLE status (
+    id_status SERIAL PRIMARY KEY,
+    nama_status VARCHAR(255) UNIQUE NOT NULL
+);
 
-```
-$ cd /path/to/codeigniter
-$ php bin/install.php translations 3.1.0
-```
-
-#### Install Third Party Libraries
-
-[Codeigniter Matches CLI](https://github.com/avenirer/codeigniter-matches-cli):
-
-```
-$ php bin/install.php matches-cli master
-```
-
-[CodeIgniter HMVC Modules](https://github.com/jenssegers/codeigniter-hmvc-modules):
-
-```
-$ php bin/install.php hmvc-modules master
-```
-
-[Modular Extensions - HMVC](https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc):
-
-```
-$ php bin/install.php modular-extensions-hmvc codeigniter-3.x
-```
-
-[Ion Auth](https://github.com/benedmunds/CodeIgniter-Ion-Auth):
-
-```
-$ php bin/install.php ion-auth 2
-```
-
-[CodeIgniter3 Filename Checker](https://github.com/kenjis/codeigniter3-filename-checker):
-
-```
-$ php bin/install.php filename-checker master
-```
-
-[CodeIgniter Rest Server](https://github.com/chriskacerguis/codeigniter-restserver):
-
-```
-$ php bin/install.php restserver 2.7.2
-```
-[CodeIgniter Developer Toolbar](https://github.com/JCSama/CodeIgniter-develbar):
-
-```
-$ php bin/install.php codeigniter-develbar master
-```
-
-### Run PHP built-in server (PHP 5.4 or later)
-
-```
-$ cd /path/to/codeigniter
-$ bin/server.sh
-```
-
-### Update CodeIgniter
-
-```
-$ cd /path/to/codeigniter
-$ composer update
-```
-
-You must update files manually if files in `application` folder or `index.php` change. Check [CodeIgniter User Guide](http://www.codeigniter.com/user_guide/installation/upgrading.html).
-
-## Reference
-
-* [Composer Installation](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
-* [CodeIgniter](https://github.com/bcit-ci/CodeIgniter)
-* [Translations for CodeIgniter System](https://github.com/bcit-ci/codeigniter3-translations)
-
-## Related Projects for CodeIgniter 3.x
-
-* [Cli for CodeIgniter 3.0](https://github.com/kenjis/codeigniter-cli)
-* [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test)
-* [CodeIgniter Simple and Secure Twig](https://github.com/kenjis/codeigniter-ss-twig)
-* [CodeIgniter Doctrine](https://github.com/kenjis/codeigniter-doctrine)
-* [CodeIgniter Deployer](https://github.com/kenjis/codeigniter-deployer)
-* [CodeIgniter3 Filename Checker](https://github.com/kenjis/codeigniter3-filename-checker)
-* [CodeIgniter Widget (View Partial) Sample](https://github.com/kenjis/codeigniter-widgets)
+-- Tabel Produk
+CREATE TABLE produk (
+    id_produk SERIAL PRIMARY KEY,
+    nama_produk VARCHAR(255) NOT NULL,
+    harga NUMERIC(15, 2) DEFAULT 0,
+    kategori_id INTEGER REFERENCES kategori(id_kategori),
+    status_id INTEGER REFERENCES status(id_status)
+);

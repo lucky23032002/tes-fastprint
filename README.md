@@ -4,6 +4,7 @@ Aplikasi Dashboard Manajemen Produk yang dibangun menggunakan **CodeIgniter 3** 
 
 Dokumentasi Link:
 https://youtu.be/CZpfL5cUnCA
+<img width="1899" height="908" alt="Screenshot 2026-02-04 193408" src="https://github.com/user-attachments/assets/9d72a987-d3a7-455c-9d0e-8ef25864be9d" />
 
 ## 📋 Fitur Utama
 

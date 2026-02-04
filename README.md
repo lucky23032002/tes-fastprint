@@ -56,8 +56,9 @@ Aplikasi menggunakan 3 tabel yang saling berelasi:
 ### 2. Instalasi Database
 Buat database baru di pgAdmin bernama `tes_fastprint`, lalu jalankan query berikut:
 
-```sql
--- Tabel Kategori
+Buka application/config/database.php, sesuaikan kredensial PostgreSQL:
+
+```-- Tabel Kategori
 CREATE TABLE kategori (
     id_kategori SERIAL PRIMARY KEY,
     nama_kategori VARCHAR(255) UNIQUE NOT NULL
@@ -77,8 +78,18 @@ CREATE TABLE produk (
     kategori_id INTEGER REFERENCES kategori(id_kategori),
     status_id INTEGER REFERENCES status(id_status)
 );
+```
+### 3. Konfigurasi Project
+1. Clone repository ini ke folder htdocs atau www.
+2. Buka `application/config/database.php`, sesuaikan kredensial PostgreSQL:
+```'hostname' => 'localhost',
+'username' => 'postgres',
+'password' => 'password_db_anda',
+'database' => 'tes_fastprint',
+'dbdriver' => 'postgre',
+```
+3. Buka `application/config/config.php`, atur base URL:
+```
+$config['base_url'] = 'http://localhost/tes-fastprint/';
+```
 
-3. Konfigurasi Project
-Clone repository ini ke folder htdocs atau www.
-
-Buka application/config/database.php, sesuaikan kredensial PostgreSQL:

@@ -21,20 +21,18 @@ Sesuai dengan persyaratan tes, aplikasi ini mencakup fitur berikut:
     * Harga wajib berupa angka.
 4.  **Database Relasional**:
     * Menggunakan **PostgreSQL**.
-    * Normalisasi tabel: `produk`, `kategori`, dan `status`.
+    * Tabel: `produk`, `kategori`, dan `status`.
 5.  **UI/UX Modern**:
     * **Admin Dashboard Style** dengan Sidebar.
     * **Responsive Design** (Mobile Friendly) menggunakan Bootstrap 5 & FontAwesome.
 
 ## 🛠️ Teknologi yang Digunakan
 
-* **Backend**: CodeIgniter 3 (PHP)
-* **Database**: PostgreSQL 16
+* **Backend**: CodeIgniter 3
+* **Database**: PostgreSQL 18
 * **Frontend**: Bootstrap 5, Vanilla JS (AJAX-free Filtering), FontAwesome 6
-* **Font**: Inter / Plus Jakarta Sans
 
 ## 🗄️ Struktur Database
-
 
 
 Aplikasi menggunakan 3 tabel yang saling berelasi:
